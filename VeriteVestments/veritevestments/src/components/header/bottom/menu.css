@@ -1,0 +1,47 @@
+.menu-container {
+    position: sticky;
+    top: 0;
+    background: white;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-block{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    gap: 50px;
+ }
+ .menu-block a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+  }
+  .menu-elem {
+    display: block;
+    position: relative;
+    padding: 0.2em 0;
+  }
+    .menu-elem::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.2em;
+    background-color: black;
+    opacity: 0;
+    border-radius: 100px    ;
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+.menu-elem:hover::after, .menu-elem:focus::after {
+    opacity: 1;
+    transform: translate3d(0, 0.2em, 0);
+  } 
+
+.menu-elem:hover{
+    color: rgb(70, 66, 66);
+    text-decoration: none;
+}

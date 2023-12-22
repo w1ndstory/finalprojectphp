@@ -1,0 +1,46 @@
+/* order.css */
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+  
+  th, td {
+    border-bottom: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  button {
+    padding: 6px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  button:hover{
+    background-color: #92b4d2;  
+  }
+ /* order.css */
+
+/* ... Попередні стилі ... */
+
+.container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,129 @@
+.product-details-container {
+    display: flex;
+    padding: 20px;
+}
+
+.product-images {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.image-swiper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-swiper img {
+    width: 200px;
+    height: 600px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.thumbnail-images {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.thumbnail-image {
+    opacity: 0.5;
+    margin: 0 5px;
+}
+
+.thumbnail-image.selected {
+    opacity: 1;
+}
+
+.thumbnail-img-style {
+    width: 100%;
+    height: 100px;
+}
+
+.product-details {
+    display: block;
+    text-align: left;
+    width: 600px;
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.product-features {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.product-material {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.product-made-in {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.product-price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.product-actions {
+    display: block;
+}
+
+.select-size {
+    margin-right: 20px;
+}
+
+label {
+    font-size: 16px;
+}
+
+.select-size-element {
+    width: 100%;
+   height: 35px;
+}
+.add-to-bag {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.add-to-wishlist {
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.add-to-bag, .add-to-wishlist{
+    margin-top: 10px;
+}
