@@ -170,11 +170,34 @@ function AdminProducts() {
         fetchCountries();
         fetchMadeIns();
     }, []);
-
+    const handleDownloadPI = () => {
+        fetch('http://127.0.0.1:8000/api/reports/download-product-italy', {
+            method: 'GET',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to download report');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'product_made_in.csv';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            })
+            .catch(error => {
+                console.error('Error downloading report:', error);
+            });
+    };
     return (
         <Layout>
             <div className='container'>
                 <h2>Product Management</h2>
+                <button onClick={handleDownloadPI}>Download products in Italy</button>
                 <table>
                     <thead>
                         <tr>

@@ -2,6 +2,7 @@ import Layout from "../../components/layout/layout";
 import React, { useState, useEffect } from 'react';
 import { Route, useParams } from "react-router-dom";
 import SlideId from './slide_id';
+import Modal from './modal';
 import './id.css';
 
 function ProductDetails() {
@@ -12,6 +13,9 @@ function ProductDetails() {
     const [selectedSize, setSelectedSize] = useState('');
     const [addToBagMessage, setAddToBagMessage] = useState('');
     const [sizeError, setSizeError] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [paymentOption, setPaymentOption] = useState('Not Payed');
+    const [clientName, setClientName] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,37 +54,41 @@ function ProductDetails() {
         setSizeError(false);
     };
 
-    const handleAddToBag = () => {
+      const handleAddToBag = () => {
         if (selectedSize) {
-          console.log('Sending request with:', product.id, selectedSize); // Добавить эту строку
-      
-          fetch('http://127.0.0.1:8000/api/orders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              product_id: product.id,
-              size: selectedSize,
-              quantity: 1,
-            }),
-          })
-            .then((response) => {
-              if (response.ok) {
-                setAddToBagMessage('Product added to bag!');
-              } else {
-                setAddToBagMessage('Failed to add product to bag!');
-              }
-            })
-            .catch((error) => {
-              console.error('Error adding to bag:', error);
-              setAddToBagMessage('Failed to add product to bag!');
-            });
-        } else {
-          setSizeError(true);
-          setAddToBagMessage('Please select a size!');
+            setIsModalOpen(true);
         }
-      };
+        else {
+            setSizeError(true);
+            setAddToBagMessage('Please select a size!');
+        }
+    };
+
+    const handleConfirm = () => {
+        if (!clientName) {
+            alert("Please enter your name.");
+            return;
+        }
+
+        setIsModalOpen(false);
+
+        fetch('http://127.0.0.1:8000/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                product_id: product.id,
+                size: selectedSize,
+                client_name: clientName,
+                status: paymentOption,
+                quantity: 1,
+            }),
+        })
+            .then(response => {
+                if (response.ok) alert('Product added to bag!');
+                else alert('Failed to add product to bag!');
+            })
+            .catch(error => console.error('Error adding to bag:', error));
+    };
 
     if (!product) {
         return <div>Loading...</div>;
@@ -140,6 +148,38 @@ function ProductDetails() {
                             <option value="XL">XL</option>
                         </select>
                         <button className="add-to-bag" onClick={handleAddToBag}>ADD TO BAG</button>
+
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <h2>Confirm Your Order</h2>
+                    <input
+                        type="text"
+                        placeholder="Enter your name"
+                        value={clientName}
+                        onChange={(e) => setClientName(e.target.value)}
+                        className="input-field"
+                    />
+                    <div className="payment-options">
+                        <label>
+                            <input
+                                type="radio"
+                                value="Payed"
+                                checked={paymentOption === 'Payed'}
+                                onChange={() => setPaymentOption('Payed')}
+                            />
+                            Pay Now
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                value="Not Payed"
+                                checked={paymentOption === 'Not Payed'}
+                                onChange={() => setPaymentOption('Not Payed')}
+                            />
+                            Pay Later
+                        </label>
+                    </div>
+                    <button onClick={handleConfirm} className="confirm-button">Confirm</button>
+                </Modal>
                         <p style={{ color: 'grey' }}>{addToBagMessage}</p>
                     </div>
                 </div>
